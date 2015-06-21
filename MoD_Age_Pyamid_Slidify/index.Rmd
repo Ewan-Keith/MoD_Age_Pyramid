@@ -1,0 +1,111 @@
+---
+title       : UK Armed Forces Age Statistics
+subtitle    : Using Shiny and Slidify to display data interactively
+author      : Ewan Keith
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+ext_widgets: {rCharts: [libraries/nvd3]}
+mode        : selfcontained # {standalone, draft}
+---
+
+## Age of the UK Armed Forces
+
+The British Ministry of Defence (MoD) Publishes Annual Statistics 
+on the age  of it's military personnel.
+
+These figures are reported in the MoD's 
+*UK armed forces annual personnel report*. 
+
+Recent reports can be found [here](
+https://www.gov.uk/government/collections/uk-armed-forces-annual-manning-statistics-index)
+
+--- 
+
+## Available Breakdown
+
+The published figures provide age data broken down by:
+
+- Rank Type (Officer or Other Rank)
+- Gender
+- Service (Naval Services, Army or RAF)
+
+This Shiny App did not focus on differences between services, 
+although could easily be extended in order to do so. 
+
+---
+
+## Why use Shiny to display this data?
+
+Shiny allows for the interactive display of both absolute 
+numbers and relative percentage within gender depending 
+on user input.
+
+This helpfully illustrates both the age distributions within 
+each rank *and* the large differences in total numbers between
+men and woman at all ranks.
+
+The age pyramids were produced using the NVD3 Javascript
+library called via rCharts. Formatting and code were heavily 
+borrowed from [Kyle Walker's blog post on age pyramids](
+http://walkerke.github.io/2014/06/rcharts-pyramids/).
+
+---
+
+## Other options
+
+Another option for display would have been to show Officers and Other ranks as the two sides to a single pyramid. See an example of this beow.
+
+```{r, echo = FALSE, comment = NA, results='asis'}
+library(rCharts)
+
+age.data <- read.csv("age structure data.csv")
+
+age.data$numbers[age.data$rank.type == "other.rank"] <- age.data$numbers[age.data$rank.type == "other.rank"]*-1
+
+male.age.data <- age.data[age.data$gender == "male",]
+
+n1 <- nPlot(
+        y = 'numbers', 
+        x = 'Age.group', 
+        group = 'rank.type', 
+        type = 'multiBarHorizontalChart', 
+        data = male.age.data)
+      
+      # reorder the age axis
+      n1$chart(xDomain = c("50 and over", "45-49", "40-44", "35-39",
+                           "30-34", "25-29", "20-24", "18-19", "Under 18"))
+      
+      # set stacked as default, no major influence
+      n1$chart(stacked = TRUE)
+      
+      # adjust the tooltip message
+      n1$chart(tooltipContent = "#! function(key, x, y, e){
+               var format = d3.format('0,000');
+               return '<h3>' + key + ', age ' + x + '</h3>' + 
+               '<p>' + 'Population: ' + y + '</p>'
+    } !#")
+      
+      # adjust population axis
+      n1$yAxis(axisLabel = "Population",  
+               tickFormat = "#! function(d) {
+               var format = d3.format('0,000');
+               return format(Math.abs(d))
+  } !#")
+      
+      # adjust margins to prevent cutoffs
+      n1$chart(margin = list(left = 70, right = 40))
+      
+      # add title using online template
+      n1$templates$script <- "http://timelyportfolio.github.io/rCharts_nvd3_templates/chartWithTitle.html"
+      n1$set(title = "Age of Male Personnel by Rank Type")
+      
+      # set colours
+      n1$chart(color = c('darkred', 'silver'))
+      
+      n1$chart(showControls = FALSE)
+      
+      n1$show('inline')
+```

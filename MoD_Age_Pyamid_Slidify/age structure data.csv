@@ -1,0 +1,37 @@
+Age.group,numbers,gender,percent,rank.type
+Under 18,0,male,0,officer
+18-19,30,male,0.001398314,officer
+20-24,1470,male,0.060621016,officer
+25-29,4300,male,0.177010076,officer
+30-34,4130,male,0.169689492,officer
+35-39,3650,male,0.149948591,officer
+40-44,4090,male,0.168167798,officer
+45-49,3980,male,0.163890603,officer
+50 and over,2660,male,0.109274111,officer
+Under 18,1610,male,0.013509328,other.rank
+18-19,5790,male,0.048454463,other.rank
+20-24,29700,male,0.248574992,other.rank
+25-29,29910,male,0.250382932,other.rank
+30-34,22040,male,0.184443347,other.rank
+35-39,15080,male,0.126204247,other.rank
+40-44,9580,male,0.080218962,other.rank
+45-49,4010,male,0.033564069,other.rank
+50 and over,1750,male,0.014647661,other.rank
+Under 18,0,female,0,officer
+18-19,0,female,0,officer
+20-24,240,female,0.067250636,officer
+25-29,790,female,0.222661769,officer
+30-34,980,female,0.276914383,officer
+35-39,770,female,0.217575586,officer
+40-44,460,female,0.128849958,officer
+45-49,230,female,0.064707545,officer
+50 and over,80,female,0.022040124,officer
+Under 18,150,female,0.012195122,other.rank
+18-19,510,female,0.041300813,other.rank
+20-24,2930,female,0.237886179,other.rank
+25-29,3440,female,0.279268293,other.rank
+30-34,2680,female,0.217804878,other.rank
+35-39,1470,female,0.119593496,other.rank
+40-44,860,female,0.070243902,other.rank
+45-49,220,female,0.01796748,other.rank
+50 and over,50,female,0.003739837,other.rank

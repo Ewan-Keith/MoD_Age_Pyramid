@@ -1,0 +1,16 @@
+base
+methods
+datasets
+utils
+grDevices
+graphics
+stats
+slidify
+XML
+reshape2
+rCharts
+plyr
+shiny
+devtools
+knitr
+shinyapps
